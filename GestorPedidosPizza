@@ -1,0 +1,96 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class GestorPedidosPizza {
+
+    public static void main(String[] args) {
+
+        Scanner input = new Scanner(System.in);
+        ArrayList<Pizza> pizzas = new ArrayList<Pizza>();
+        double total = 0;
+        boolean exit = false;
+
+        System.out.println("Bienvenido al gestor de pedidos de pizza!");
+
+        while (!exit) {
+
+            System.out.println("Por favor, seleccione una opción:");
+            System.out.println("1. Crear un nuevo pedido");
+            System.out.println("2. Agregar pizzas al pedido");
+            System.out.println("3. Calcular el total");
+            System.out.println("4. Finalizar el pedido");
+            int option = input.nextInt();
+
+            switch (option) {
+
+                case 1:
+                    pizzas.clear();
+                    total = 0;
+                    System.out.println("Nuevo pedido creado.");
+                    break;
+
+                case 2:
+                    System.out.println("Ingrese el nombre de la pizza:");
+                    String name = input.next();
+                    System.out.println("Ingrese el tamaño de la pizza:");
+                    String size = input.next();
+                    System.out.println("Ingrese el precio de la pizza:");
+                    double price = input.nextDouble();
+                    pizzas.add(new Pizza(name, size, price));
+                    System.out.println("Pizza agregada al pedido.");
+                    break;
+
+                case 3:
+                    for (Pizza p : pizzas) {
+                        System.out.println(p);
+                        total += p.getPrice();
+                    }
+                    System.out.println("Total a pagar: $" + total);
+                    break;
+
+                case 4:
+                    System.out.println("Gracias por su pedido!");
+                    exit = true;
+                    break;
+
+                default:
+                    System.out.println("Opción inválida. Por favor, seleccione una opción válida.");
+                    break;
+            }
+
+        }
+        input.close();
+
+    }
+
+    static class Pizza {
+
+        private String name;
+        private String size;
+        private double price;
+
+        public Pizza(String name, String size, double price) {
+            this.name = name;
+            this.size = size;
+            this.price = price;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public String getSize() {
+            return size;
+        }
+
+        public double getPrice() {
+            return price;
+        }
+
+        @Override
+        public String toString() {
+            return name + " - " + size + " - $" + price;
+        }
+
+    }
+}
